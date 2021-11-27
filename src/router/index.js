@@ -1,27 +1,34 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Login from '../components/Login.vue'
+import '../assets/css/global.css'
+import axios from 'axios'
+Vue.prototype.$http = axios
+axios.defaults.baseURL = 'http://localhost:3000'
 Vue.use(VueRouter)
+import home from '../components/home.vue'
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+
+// const routes = [
+//   {path:'/', redirect:'/login'},
+//   { path:'/login',component:Login},
+//   {path:'/home', component:home}
+// ]
 
 const router = new VueRouter({
-  routes
+  routes:[
+    {path:'/', redirect:'/login'},
+    {path:'/login',component:Login},
+    {path:'/home', component:home}
+  ]
 })
+
+router.beforeEach((to,from,next) => {
+  if(to.path === '/login') return next();
+  const tokenstr = window.sessionStorage.getItem('token');
+  if(!tokenstr) return next('/login');
+  next();
+})
+
 
 export default router
