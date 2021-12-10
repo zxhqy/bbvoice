@@ -13,24 +13,28 @@
           background-color="#333744"
           text-color="#fff"
           active-text-color="#ffd04b"
+          router="true"
+          :default-active="activePath"
         >
-          <el-menu-item index="1">
+          <el-menu-item index="users" @click="saveNavState('users')">
             <i class="el-icon-user"></i>
             <span slot="title">用户概览</span>
           </el-menu-item>
 
-          <el-menu-item index="2">
+          <el-menu-item index="date" @click="saveNavState('date')">
             <i class="el-icon-menu"></i>
             <span slot="title">用户日程</span>
           </el-menu-item>
 
-          <el-menu-item index="3">
+          <el-menu-item index="course" @click="saveNavState('course')">
             <i class="el-icon-school"></i>
             <span slot="title">课表管理</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -44,11 +48,20 @@
 
 <script>
 export default {
+  data(){
+    activePath:''
+  },
+  created(){
+    this.activePath = window.sessionStorage.getItem('activePath')
+  },
   methods: {
     logout() {
       window.sessionStorage.clear();
       this.$router.push("/login");
     },
+    saveNavState(activePath){
+      window.sessionStorage.setItem('activePath', activePath)
+    }
   },
 };
 </script>

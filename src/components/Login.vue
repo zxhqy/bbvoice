@@ -4,12 +4,12 @@
             <div class="avatar"><img src="../assets/1.png" ></div>
             <el-form ref="loginref" :model="loginForm" :rules="loginrules" class="login_form">
 
-            <el-form-item prop="userid" >
-            <el-input v-model="loginForm.userid" prefix-icon="el-icon-user-solid"></el-input>
+            <el-form-item prop="aid" >
+            <el-input v-model="loginForm.aid" prefix-icon="el-icon-user-solid"></el-input>
             </el-form-item>
 
-            <el-form-item prop="password" >
-            <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" type="password"></el-input>
+            <el-form-item prop="apwd" >
+            <el-input v-model="loginForm.apwd" prefix-icon="el-icon-lock" type="apwd"></el-input>
             </el-form-item>
 
              <el-form-item class="btns">
@@ -33,17 +33,13 @@ export default {
     data(){
         return{
             loginForm:{
-                userid:'',
-                password:''
-            },
-            login1:{
-                phone:'18509211212',
-                password:'zxhqy1212'
+                aid:'',
+                apwd:''
             },
 
             loginrules:{
-                userid:[ {required: true, message: '请输入账号', trigger: 'blur'}],
-                password:[{ required: true, message: '请输入密码', trigger: 'blur'}]
+                aid:[ {required: true, message: '请输入账号', trigger: 'blur'}],
+                apwd:[{ required: true, message: '请输入密码', trigger: 'blur'}]
             }
         }
     },
@@ -56,11 +52,11 @@ export default {
         login(){
             this.$refs.loginref.validate(async valid =>{
                 if(!valid) return;
-                const res = await this.$http.post('/login/cellphone',this.login1);
+                const res = await this.$http.post('/login',this.loginForm);
                 console.log(res.data);
                 if(res.data.code !== 200){return this.$message.error('登录失败');}
                 else this.$message.success('登录成功');
-                window.sessionStorage.setItem('token',res.data.token);
+                window.sessionStorage.setItem('token',res.data.data);
                 this.$router.push('/home')
                 });
 
