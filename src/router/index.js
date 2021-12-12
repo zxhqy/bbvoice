@@ -10,6 +10,7 @@ import home from '../components/home.vue'
 import users from '../components/user/users.vue'
 import date from '../components/date/date.vue'
 import  course from '../components/course/course.vue'
+import wel from '../components/wel.vue'
 
 
 
@@ -19,7 +20,10 @@ const router = new VueRouter({
     {path:'/login',component:Login},
     { path:'/home',
       component:home,
-      children : [{path : '/users', component : users},
+      redirect : 'wel',
+      children : [
+      {path : '/wel' , component : wel}  ,
+      {path : '/users', component : users},
       {path : '/date', component : date},
       {path : '/course', component : course},
     ]

@@ -29,23 +29,7 @@ export default {
   data(){
       return{
           int : 1,
-          userlist : [{
-            user_id:'1',
-            open_id:'1'
-          },
-          {
-            user_id:'2',
-            open_id:'2'
-          },
-          {
-            user_id:'3',
-            open_id:'4'
-          },
-          {
-            user_id:'5',
-            open_id:'6'
-          }
-          ],
+          userlist : [],
           total : 0
       }
   },
@@ -54,12 +38,17 @@ export default {
   },
   methods: {
       async getUserlist(){
-         const {data:res} = await this.$http.get('schedule/users');
-         console.log(res);
-         if(res.data.code != 200){
+         const {data:res} = await this.$http.get('schedule/users',{
+           headers :{
+             'Token':  window.sessionStorage.getItem('token'),
+           }
+         });
+         if(res.code != 200){
            return this.$message.error('获取失败');
          }
-          this.userlist = res.data.list;
+         console.log(res)
+          this.userlist = res.data;
+           console.log(this.userlist)
           
          
       }

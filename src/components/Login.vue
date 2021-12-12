@@ -1,7 +1,7 @@
 <template>
     <div class="login_container">
         <div class="login_box">
-            <div class="avatar"><img src="../assets/1.png" ></div>
+            <div class="avatar"><img src="../assets/1.jpg" ></div>
             <el-form ref="loginref" :model="loginForm" :rules="loginrules" class="login_form">
 
             <el-form-item prop="aid" >
@@ -9,7 +9,7 @@
             </el-form-item>
 
             <el-form-item prop="apwd" >
-            <el-input v-model="loginForm.apwd" prefix-icon="el-icon-lock" type="apwd"></el-input>
+            <el-input v-model="loginForm.apwd" prefix-icon="el-icon-lock" type="apwd" show-password></el-input>
             </el-form-item>
 
              <el-form-item class="btns">

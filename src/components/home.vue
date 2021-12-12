@@ -2,7 +2,7 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <span>蚌埠语音管理后台</span>
+        <span>蚌埠组语音助手管理后台</span>
       </div>
       <el-button type="info" @click="logout">退出系统</el-button>
     </el-header>
